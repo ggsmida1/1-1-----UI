@@ -645,6 +645,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\src\LED.c</FilePath>
             </File>
+            <File>
+              <FileName>SetTime.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\src\SetTime.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

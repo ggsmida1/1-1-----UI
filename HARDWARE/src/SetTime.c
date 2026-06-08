@@ -38,11 +38,11 @@ int SetYear(void)
     while (1)
     {
         KeyNum = Key_GetNum();
-        if (Key_Num == 1)       // 加1
+        if (KeyNum == 1)       // 加1
             Change_RTC_Time(0, 1);
-        else if (Key_Num == 2)  // 减1
+        else if (KeyNum == 2)  // 减1
             Change_RTC_Time(0, 0);
-        else if (Key_Num == 3)  // 确认返回
+        else if (KeyNum == 3)  // 确认返回
             return 0;
 
         Show_SetTime_FirstUI();
@@ -56,17 +56,17 @@ int SetMonth(void)
     while (1)
     {
         KeyNum = Key_GetNum();
-        if (Key_Num == 1)       // 加1
+        if (KeyNum == 1)       // 加1
         {
             Change_RTC_Time(1, 1);
             if (MyRTC_Time[1] >= 13) { MyRTC_Time[1] = 1; MyRTC_SetTime(); }
         }
-        else if (Key_Num == 2)  // 减1
+        else if (KeyNum == 2)  // 减1
         {
             Change_RTC_Time(1, 0);
             if (MyRTC_Time[1] <= 0)  { MyRTC_Time[1] = 12; MyRTC_SetTime(); }
         }
-        else if (Key_Num == 3)  // 确认返回
+        else if (KeyNum == 3)  // 确认返回
             return 0;
 
         Show_SetTime_FirstUI();
@@ -80,17 +80,17 @@ int SetDay(void)
     while (1)
     {
         KeyNum = Key_GetNum();
-        if (Key_Num == 1)       // 加1
+        if (KeyNum == 1)       // 加1
         {
             Change_RTC_Time(2, 1);
             if (MyRTC_Time[2] >= 32) { MyRTC_Time[2] = 1; MyRTC_SetTime(); }
         }
-        else if (Key_Num == 2)  // 减1
+        else if (KeyNum == 2)  // 减1
         {
             Change_RTC_Time(2, 0);
             if (MyRTC_Time[2] <= 0)  { MyRTC_Time[2] = 31; MyRTC_SetTime(); }
         }
-        else if (Key_Num == 3)  // 确认返回
+        else if (KeyNum == 3)  // 确认返回
             return 0;
 
         Show_SetTime_FirstUI();
@@ -104,17 +104,17 @@ int SetHour(void)
     while (1)
     {
         KeyNum = Key_GetNum();
-        if (Key_Num == 1)       // 加1
+        if (KeyNum == 1)       // 加1
         {
             Change_RTC_Time(3, 1);
             if (MyRTC_Time[3] >= 24) { MyRTC_Time[3] = 0; MyRTC_SetTime(); }
         }
-        else if (Key_Num == 2)  // 减1
+        else if (KeyNum == 2)  // 减1
         {
             if (MyRTC_Time[3] == 0) { MyRTC_Time[3] = 23; MyRTC_SetTime(); }
             else                    { Change_RTC_Time(3, 0); }
         }
-        else if (Key_Num == 3)  // 确认返回
+        else if (KeyNum == 3)  // 确认返回
             return 0;
 
         Show_SetTime_SecondUI();
@@ -128,17 +128,17 @@ int SetMin(void)
     while (1)
     {
         KeyNum = Key_GetNum();
-        if (Key_Num == 1)       // 加1
+        if (KeyNum == 1)       // 加1
         {
             Change_RTC_Time(4, 1);
             if (MyRTC_Time[4] >= 60) { MyRTC_Time[4] = 0; MyRTC_SetTime(); }
         }
-        else if (Key_Num == 2)  // 减1
+        else if (KeyNum == 2)  // 减1
         {
             if (MyRTC_Time[4] == 0) { MyRTC_Time[4] = 59; MyRTC_SetTime(); }
             else                    { Change_RTC_Time(4, 0); }
         }
-        else if (Key_Num == 3)  // 确认返回
+        else if (KeyNum == 3)  // 确认返回
             return 0;
 
         Show_SetTime_SecondUI();
@@ -152,17 +152,17 @@ int SetSec(void)
     while (1)
     {
         KeyNum = Key_GetNum();
-        if (Key_Num == 1)       // 加1
+        if (KeyNum == 1)       // 加1
         {
             Change_RTC_Time(5, 1);
             if (MyRTC_Time[5] >= 60) { MyRTC_Time[5] = 0; MyRTC_SetTime(); }
         }
-        else if (Key_Num == 2)  // 减1
+        else if (KeyNum == 2)  // 减1
         {
             if (MyRTC_Time[5] == 0) { MyRTC_Time[5] = 59; MyRTC_SetTime(); }
             else                    { Change_RTC_Time(5, 0); }
         }
-        else if (Key_Num == 3)  // 确认返回
+        else if (KeyNum == 3)  // 确认返回
             return 0;
 
         Show_SetTime_SecondUI();
@@ -182,17 +182,17 @@ int SetTime(void)
         KeyNum = Key_GetNum();
         uint8_t set_time_flag_temp = 0;
 
-        if (Key_Num == 1)       // 上一个
+        if (KeyNum == 1)       // 上一个
         {
             set_time_flag--;
             if (set_time_flag <= 0) set_time_flag = 7;
         }
-        else if (Key_Num == 2)  // 下一个
+        else if (KeyNum == 2)  // 下一个
         {
             set_time_flag++;
             if (set_time_flag >= 8) set_time_flag = 1;
         }
-        else if (Key_Num == 3)  // 确认
+        else if (KeyNum == 3)  // 确认
         {
             OLED_Clear();
             OLED_Update();
