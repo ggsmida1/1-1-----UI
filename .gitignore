@@ -1,16 +1,23 @@
 # Keil 编译输出
 OBJ/
 USER/Listings/
+*.hex
+*.bin
+*.axf
+
+# Keil 工程备份
+*.uvguix.*
+*.scvd
+*.uvoptx
+USER/DebugConfig/
 
 # 临时文件
 *.build_log.htm
 build_output.txt
 USER/build_log.txt
-*.uvguix.*
-*.scvd
-
-# Keil Debug 配置
-USER/DebugConfig/
+*.bak
+*.tmp
+*~
 
 # Claude Code 本地配置
 .claude/
