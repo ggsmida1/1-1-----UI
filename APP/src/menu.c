@@ -1,12 +1,16 @@
 #include "menu.h"
+#include "Key.h"
+#include "LED.h"
 
 
 void Menu_Init(void)
 {
     MyRTC_Init();
+    Key_Init();
+    LED_Init();
 }
 
-/* --------------  Ê×Ò³Ê±ÖÓ ----------------*/
+/* --------------  ï¿½ï¿½Ò³Ê±ï¿½ï¿½ ----------------*/
 
 void Show_Clock_UI(void) {
     MyRTC_ReadTime();
@@ -17,7 +21,50 @@ void Show_Clock_UI(void) {
     OLED_Printf(16, 16, OLED_12X24, "%02d:%02d:%02d",
                 MyRTC_Time[3], MyRTC_Time[4], MyRTC_Time[5]);
 
-    OLED_ShowString(0, 48, "²Ëµ¥", OLED_8X16);
-    OLED_ShowString(96, 48, "ÉèÖÃ", OLED_8X16);
+    OLED_ShowString(0, 48, "ï¿½Ëµï¿½", OLED_8X16);
+    OLED_ShowString(96, 48, "ï¿½ï¿½ï¿½ï¿½", OLED_8X16);
 }
 
+int clkflag = 1;
+
+int First_Page_Clock(void)
+{
+    uint8_t KeyNum;
+
+    while (1)
+    {
+        KeyNum = Key_GetNum();
+
+        if (KeyNum == 1)        // ä¸Šä¸€ä¸ª
+        {
+            clkflag--;
+            if (clkflag <= 0) clkflag = 2;
+        }
+        else if (KeyNum == 2)   // ä¸‹ä¸€ä¸ª
+        {
+            clkflag++;
+            if (clkflag >= 3) clkflag = 1;
+        }
+        else if (KeyNum == 3)   // ç¡®è®¤
+        {
+            OLED_Clear();
+            OLED_Update();
+            return clkflag;
+        }
+
+        switch (clkflag)
+        {
+            case 1:
+                Show_Clock_UI();
+                OLED_ReverseArea(0, 48, 32, 16);
+                OLED_Update();
+                break;
+
+            case 2:
+                Show_Clock_UI();
+                OLED_ReverseArea(96, 48, 32, 16);
+                OLED_Update();
+                break;
+        }
+    }
+}
