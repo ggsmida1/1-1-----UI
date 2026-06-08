@@ -68,6 +68,8 @@ extern const ChineseCell_t OLED_CF16x16[];
 
 extern const uint8_t Diode[];
 extern const uint8_t Return[];
+extern const uint8_t Frame[];
+extern const uint8_t Menu_Graph[][128];
 
 /*按照上面的格式，在这个位置加入新的图像数据声明*/
 
