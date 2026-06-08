@@ -125,6 +125,10 @@ int SettingPage(void)
 }
 
 
+/* 前置声明 */
+void MenuToFunction(void);
+int StopWatch(void);
+
 /* --------------  滑动菜单界面 ----------------*/
 
 uint8_t pre_selection;      // 上次选择的选项
@@ -179,8 +183,8 @@ void Set_Selection(uint8_t move_flag, uint8_t Pre_Selection, uint8_t Target_Sele
     {
         pre_selection = Pre_Selection;
         target_selection = Target_Selection;
-        Menu_Animation();
     }
+    Menu_Animation();
 }
 
 uint8_t menu_flag = 1;
@@ -216,7 +220,7 @@ int Menu(void)
         }
 
         if (menu_flag_temp == 1) { return 0; }
-        else if (menu_flag_temp == 2) {}
+        else if (menu_flag_temp == 2) { MenuToFunction(); StopWatch(); }
         else if (menu_flag_temp == 3) {}
         else if (menu_flag_temp == 4) {}
         else if (menu_flag_temp == 5) {}
@@ -232,6 +236,122 @@ int Menu(void)
         {
             if (DirectFlag == 1) Set_Selection(move_flag, menu_flag, menu_flag - 1);
             else if (DirectFlag == 2) Set_Selection(move_flag, menu_flag - 2, menu_flag - 1);
+        }
+    }
+}
+
+/* --------------  秒表 ----------------*/
+
+uint8_t hour, min, sec;
+
+void Show_StopWatch_UI(void)
+{
+    OLED_ShowImage(0, 0, 16, 16, Return);
+    OLED_Printf(32, 20, OLED_8X16, "%02d:%02d:%02d", hour, min, sec);
+    OLED_ShowString(8, 44, "开始", OLED_8X16);
+    OLED_ShowString(48, 44, "停止", OLED_8X16);
+    OLED_ShowString(88, 44, "清除", OLED_8X16);
+}
+
+uint8_t start_timing_flag;  // 1:开始计时, 0:停止计时
+
+void StopWatch_Tick(void)
+{
+    static uint16_t Count;
+    Count++;
+    if (Count >= 1000)
+    {
+        Count = 0;
+        if (start_timing_flag == 1)
+        {
+            sec++;
+            if (sec >= 60)
+            {
+                sec = 0;
+                min++;
+                if (min >= 60)
+                {
+                    min = 0;
+                    hour++;
+                    if (hour > 99) hour = 0;
+                }
+            }
+        }
+    }
+}
+
+void MenuToFunction(void)
+{
+    for (uint8_t i = 0; i <= 6; i++)
+    {
+        OLED_Clear();
+        if (pre_selection >= 1)
+            OLED_ShowImage(x_pre - 48, 16 + 8 * i, 32, 32, Menu_Graph[pre_selection - 1]);
+
+        OLED_ShowImage(x_pre, 16 + 8 * i, 32, 32, Menu_Graph[pre_selection]);
+        OLED_ShowImage(x_pre + 48, 16 + 8 * i, 32, 32, Menu_Graph[pre_selection + 1]);
+
+        OLED_Update();
+    }
+}
+
+uint8_t stopwatch_flag = 1;
+
+int StopWatch(void)
+{
+    while (1)
+    {
+        KeyNum = Key_GetNum();
+        uint8_t stopwatch_flag_temp = 0;
+
+        if (KeyNum == 1)        // 上一个
+        {
+            stopwatch_flag--;
+            if (stopwatch_flag <= 0) stopwatch_flag = 4;
+        }
+        else if (KeyNum == 2)   // 下一个
+        {
+            stopwatch_flag++;
+            if (stopwatch_flag >= 5) stopwatch_flag = 1;
+        }
+        else if (KeyNum == 3)   // 确认
+        {
+            OLED_Clear();
+            OLED_Update();
+            stopwatch_flag_temp = stopwatch_flag;
+        }
+
+        if (stopwatch_flag_temp == 1) { return 0; }
+
+        switch (stopwatch_flag)
+        {
+            case 1:  // 返回
+                Show_StopWatch_UI();
+                OLED_ReverseArea(0, 0, 16, 16);
+                OLED_Update();
+                break;
+
+            case 2:  // 开始
+                Show_StopWatch_UI();
+                start_timing_flag = 1;
+                OLED_ReverseArea(8, 44, 32, 16);
+                OLED_Update();
+                break;
+
+            case 3:  // 停止
+                Show_StopWatch_UI();
+                start_timing_flag = 0;
+                OLED_ReverseArea(48, 44, 32, 16);
+                OLED_Update();
+                break;
+
+            case 4:  // 清除
+                Show_StopWatch_UI();
+                start_timing_flag = 0;
+                hour = min = sec = 0;
+                OLED_ReverseArea(88, 44, 32, 16);
+                OLED_Update();
+                break;
         }
     }
 }
