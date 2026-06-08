@@ -128,6 +128,7 @@ int SettingPage(void)
 /* 前置声明 */
 void MenuToFunction(void);
 int StopWatch(void);
+int LED(void);
 
 /* --------------  滑动菜单界面 ----------------*/
 
@@ -221,7 +222,7 @@ int Menu(void)
 
         if (menu_flag_temp == 1) { return 0; }
         else if (menu_flag_temp == 2) { MenuToFunction(); StopWatch(); }
-        else if (menu_flag_temp == 3) {}
+        else if (menu_flag_temp == 3) { MenuToFunction(); LED(); }
         else if (menu_flag_temp == 4) {}
         else if (menu_flag_temp == 5) {}
         else if (menu_flag_temp == 6) {}
@@ -350,6 +351,68 @@ int StopWatch(void)
                 start_timing_flag = 0;
                 hour = min = sec = 0;
                 OLED_ReverseArea(88, 44, 32, 16);
+                OLED_Update();
+                break;
+        }
+    }
+}
+
+/* --------------  手电筒 ----------------*/
+
+void Show_LED_UI(void)
+{
+    OLED_ShowImage(0, 0, 16, 16, Return);
+    OLED_ShowString(20, 20, "OFF", OLED_12X24);
+    OLED_ShowString(72, 20, "ON", OLED_12X24);
+}
+
+uint8_t led_flag = 1;
+
+int LED(void)
+{
+    while (1)
+    {
+        KeyNum = Key_GetNum();
+        uint8_t led_flag_temp = 0;
+
+        if (KeyNum == 1)        // 上一个
+        {
+            led_flag--;
+            if (led_flag <= 0) led_flag = 3;
+        }
+        else if (KeyNum == 2)   // 下一个
+        {
+            led_flag++;
+            if (led_flag >= 4) led_flag = 1;
+        }
+        else if (KeyNum == 3)   // 确认
+        {
+            OLED_Clear();
+            OLED_Update();
+            led_flag_temp = led_flag;
+        }
+
+        if (led_flag_temp == 1) { return 0; }
+
+        switch (led_flag)
+        {
+            case 1:  // 返回
+                Show_LED_UI();
+                OLED_ReverseArea(0, 0, 16, 16);
+                OLED_Update();
+                break;
+
+            case 2:  // OFF
+                Show_LED_UI();
+                LED_OFF();
+                OLED_ReverseArea(20, 20, 36, 24);
+                OLED_Update();
+                break;
+
+            case 3:  // ON
+                Show_LED_UI();
+                LED_ON();
+                OLED_ReverseArea(72, 20, 24, 24);
                 OLED_Update();
                 break;
         }
