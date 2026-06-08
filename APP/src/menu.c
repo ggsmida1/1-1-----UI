@@ -10,7 +10,7 @@ void Menu_Init(void)
     LED_Init();
 }
 
-/* --------------  ��ҳʱ�� ----------------*/
+/* --------------  首页时钟 ----------------*/
 
 void Show_Clock_UI(void) {
     MyRTC_ReadTime();
@@ -21,8 +21,8 @@ void Show_Clock_UI(void) {
     OLED_Printf(16, 16, OLED_12X24, "%02d:%02d:%02d",
                 MyRTC_Time[3], MyRTC_Time[4], MyRTC_Time[5]);
 
-    OLED_ShowString(0, 48, "�˵�", OLED_8X16);
-    OLED_ShowString(96, 48, "����", OLED_8X16);
+    OLED_ShowString(0, 48, "菜单", OLED_8X16);
+    OLED_ShowString(96, 48, "设置", OLED_8X16);
 }
 
 int clkflag = 1;

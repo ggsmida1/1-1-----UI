@@ -1,63 +1,63 @@
-#ifndef __OLED_H
-#define __OLED_H
-
-#include <stdint.h>
-#include "OLED_Data.h"
-
-/*²ÎÊıºê¶¨Òå*********************/
-
-/*FontSize²ÎÊıÈ¡Öµ*/
-/*´Ë²ÎÊıÖµ²»½öÓÃÓÚÅĞ¶Ï£¬¶øÇÒÓÃÓÚ¼ÆËãºáÏò×Ö·ûÆ«ÒÆ£¬Ä¬ÈÏÖµÎª×ÖÌåÏñËØ¿í¶È*/
-#define OLED_8X16				8
-#define OLED_6X8				6
-#define OLED_12X24				12
-/*IsFilled²ÎÊıÊıÖµ*/
-#define OLED_UNFILLED			0
-#define OLED_FILLED				1
-
-/*********************²ÎÊıºê¶¨Òå*/
-
-
-/*º¯ÊıÉùÃ÷*********************/
-
-/*³õÊ¼»¯º¯Êı*/
-void OLED_Init(void);
-
-/*¸üĞÂº¯Êı*/
-void OLED_Update(void);
-void OLED_UpdateArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
-
-/*ÏÔ´æ¿ØÖÆº¯Êı*/
-void OLED_Clear(void);
-void OLED_ClearArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
-void OLED_Reverse(void);
-void OLED_ReverseArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
-
-/*ÏÔÊ¾º¯Êı*/
-void OLED_ShowChar(int16_t X, int16_t Y, char Char, uint8_t FontSize);
-void OLED_ShowString(int16_t X, int16_t Y, char *String, uint8_t FontSize);
-void OLED_ShowNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
-void OLED_ShowSignedNum(int16_t X, int16_t Y, int32_t Number, uint8_t Length, uint8_t FontSize);
-void OLED_ShowHexNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
-void OLED_ShowBinNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
-void OLED_ShowFloatNum(int16_t X, int16_t Y, double Number, uint8_t IntLength, uint8_t FraLength, uint8_t FontSize);
-void OLED_ShowImage(int16_t X, int16_t Y, uint8_t Width, uint8_t Height, const uint8_t *Image);
-void OLED_Printf(int16_t X, int16_t Y, uint8_t FontSize, char *format, ...);
-
-/*»æÍ¼º¯Êı*/
-void OLED_DrawPoint(int16_t X, int16_t Y);
-uint8_t OLED_GetPoint(int16_t X, int16_t Y);
-void OLED_DrawLine(int16_t X0, int16_t Y0, int16_t X1, int16_t Y1);
-void OLED_DrawRectangle(int16_t X, int16_t Y, uint8_t Width, uint8_t Height, uint8_t IsFilled);
-void OLED_DrawTriangle(int16_t X0, int16_t Y0, int16_t X1, int16_t Y1, int16_t X2, int16_t Y2, uint8_t IsFilled);
-void OLED_DrawCircle(int16_t X, int16_t Y, uint8_t Radius, uint8_t IsFilled);
-void OLED_DrawEllipse(int16_t X, int16_t Y, uint8_t A, uint8_t B, uint8_t IsFilled);
-void OLED_DrawArc(int16_t X, int16_t Y, uint8_t Radius, int16_t StartAngle, int16_t EndAngle, uint8_t IsFilled);
-
-/*********************º¯ÊıÉùÃ÷*/
-
-#endif
-
-
-/*****************½­Ğ­¿Æ¼¼|°æÈ¨ËùÓĞ****************/
-/*****************jiangxiekeji.com*****************/
+#ifndef __OLED_H
+#define __OLED_H
+
+#include <stdint.h>
+#include "OLED_Data.h"
+
+/*å‚æ•°å®å®šä¹‰*********************/
+
+/*FontSizeå‚æ•°å–å€¼*/
+/*æ­¤å‚æ•°å€¼ä¸ä»…ç”¨äºåˆ¤æ–­ï¼Œè€Œä¸”ç”¨äºè®¡ç®—æ¨ªå‘å­—ç¬¦åç§»ï¼Œé»˜è®¤å€¼ä¸ºå­—ä½“åƒç´ å®½åº¦*/
+#define OLED_8X16				8
+#define OLED_6X8				6
+#define OLED_12X24				12
+/*IsFilledå‚æ•°æ•°å€¼*/
+#define OLED_UNFILLED			0
+#define OLED_FILLED				1
+
+/*********************å‚æ•°å®å®šä¹‰*/
+
+
+/*å‡½æ•°å£°æ˜*********************/
+
+/*åˆå§‹åŒ–å‡½æ•°*/
+void OLED_Init(void);
+
+/*æ›´æ–°å‡½æ•°*/
+void OLED_Update(void);
+void OLED_UpdateArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
+
+/*æ˜¾å­˜æ§åˆ¶å‡½æ•°*/
+void OLED_Clear(void);
+void OLED_ClearArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
+void OLED_Reverse(void);
+void OLED_ReverseArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
+
+/*æ˜¾ç¤ºå‡½æ•°*/
+void OLED_ShowChar(int16_t X, int16_t Y, char Char, uint8_t FontSize);
+void OLED_ShowString(int16_t X, int16_t Y, char *String, uint8_t FontSize);
+void OLED_ShowNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
+void OLED_ShowSignedNum(int16_t X, int16_t Y, int32_t Number, uint8_t Length, uint8_t FontSize);
+void OLED_ShowHexNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
+void OLED_ShowBinNum(int16_t X, int16_t Y, uint32_t Number, uint8_t Length, uint8_t FontSize);
+void OLED_ShowFloatNum(int16_t X, int16_t Y, double Number, uint8_t IntLength, uint8_t FraLength, uint8_t FontSize);
+void OLED_ShowImage(int16_t X, int16_t Y, uint8_t Width, uint8_t Height, const uint8_t *Image);
+void OLED_Printf(int16_t X, int16_t Y, uint8_t FontSize, char *format, ...);
+
+/*ç»˜å›¾å‡½æ•°*/
+void OLED_DrawPoint(int16_t X, int16_t Y);
+uint8_t OLED_GetPoint(int16_t X, int16_t Y);
+void OLED_DrawLine(int16_t X0, int16_t Y0, int16_t X1, int16_t Y1);
+void OLED_DrawRectangle(int16_t X, int16_t Y, uint8_t Width, uint8_t Height, uint8_t IsFilled);
+void OLED_DrawTriangle(int16_t X0, int16_t Y0, int16_t X1, int16_t Y1, int16_t X2, int16_t Y2, uint8_t IsFilled);
+void OLED_DrawCircle(int16_t X, int16_t Y, uint8_t Radius, uint8_t IsFilled);
+void OLED_DrawEllipse(int16_t X, int16_t Y, uint8_t A, uint8_t B, uint8_t IsFilled);
+void OLED_DrawArc(int16_t X, int16_t Y, uint8_t Radius, int16_t StartAngle, int16_t EndAngle, uint8_t IsFilled);
+
+/*********************å‡½æ•°å£°æ˜*/
+
+#endif
+
+
+/*****************æ±Ÿåç§‘æŠ€|ç‰ˆæƒæ‰€æœ‰****************/
+/*****************jiangxiekeji.com*****************/
