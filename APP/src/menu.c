@@ -62,7 +62,7 @@ void Show_Clock_UI(void) {
     OLED_ShowString(96, 48, "设置", OLED_8X16);
 }
 
-uint8_t KeyNum;
+static uint8_t KeyNum;
 
 static int clkflag = 1;
 

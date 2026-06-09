@@ -70,16 +70,15 @@ void Show_Cloud(void)
 }
 
 uint8_t dino_jump_flag;  // 0:跑步, 1:跳跃
-extern uint8_t KeyNum;
 uint16_t jump_t;
 uint8_t Jump_Pos;
-extern double pi;
+static const double pi = 3.1415927;
 
 struct Object_Position dino;
 
 void Show_Dino(void)
 {
-    KeyNum = Key_GetNum();
+    uint8_t KeyNum = Key_GetNum();
     if (KeyNum == 1) dino_jump_flag = 1;
     Jump_Pos = 28 * sin((float)(pi * jump_t / 1000));
 

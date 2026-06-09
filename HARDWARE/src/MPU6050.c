@@ -88,7 +88,7 @@ void MPU6050_GetData(int16_t *AccX, int16_t *AccY, int16_t *AccZ,
 /* ===== 姿态解算（互补滤波） ===== */
 
 float Roll, Pitch, Yaw;
-double pi = 3.1415927;
+static double pi = 3.1415927;
 
 void MPU6050_Calculation(void)
 {

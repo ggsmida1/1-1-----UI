@@ -31,7 +31,7 @@ void Change_RTC_Time(uint8_t i, uint8_t flag)  // flag=1:加1, flag=0:减1
 
 /* -------------- 各字段调节 ----------------*/
 
-extern uint8_t KeyNum;
+static uint8_t KeyNum;
 
 int SetYear(void)
 {
