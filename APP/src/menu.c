@@ -137,6 +137,7 @@ int LED(void);
 int MPU6050_Func(void);
 int DinoGame_Animation(void);
 int Emoji(void);
+int Gradienter(void);
 
 /* --------------  滑动菜单界面 ----------------*/
 
@@ -234,7 +235,7 @@ int Menu(void)
         else if (menu_flag_temp == 4) { MenuToFunction(); MPU6050_Func(); }
         else if (menu_flag_temp == 5) { DinoGame_Pos_Init(); DinoGame_Animation(); }
         else if (menu_flag_temp == 6) { Emoji(); }
-        else if (menu_flag_temp == 7) {}
+        else if (menu_flag_temp == 7) { Gradienter(); }
 
         if (menu_flag == 1)
         {
@@ -531,5 +532,31 @@ int Emoji(void)
         }
 
         Show_Emoji_UI();
+    }
+}
+
+/* --------------  水平仪 ----------------*/
+
+void Show_Gradienter_UI(void)
+{
+    MPU6050_Calculation();
+    OLED_DrawCircle(64, 32, 30, OLED_UNFILLED);         // 外框
+    OLED_DrawCircle(64 - Roll, 32 + Pitch, 4, OLED_FILLED);  // 气泡
+}
+
+int Gradienter(void)
+{
+    while (1)
+    {
+        KeyNum = Key_GetNum();
+        if (KeyNum == 3)
+        {
+            OLED_Clear();
+            OLED_Update();
+            return 0;
+        }
+        OLED_Clear();
+        Show_Gradienter_UI();
+        OLED_Update();
     }
 }
