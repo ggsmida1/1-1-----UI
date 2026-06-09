@@ -1,10 +1,10 @@
-#include "delay.h"
+#include "Delay.h"
 
 static uint8_t  fac_us = 0; // us延时倍乘数			   
 static uint16_t fac_ms = 0; // ms延时倍乘数
 
 // 初始化延时函数
-void delay_init()
+void Delay_Init()
 {
     // 选择外部时钟，HCLK/8 (72MHz / 8 = 9MHz)
     SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8); 
@@ -13,7 +13,7 @@ void delay_init()
 }
 
 // 延时 nus (微秒)
-void delay_us(uint32_t nus)
+void Delay_us(uint32_t nus)
 {		
     uint32_t temp;	    	 
     SysTick->LOAD = nus * fac_us; // 算出倒计时的总滴答数，装入加载寄存器
@@ -29,7 +29,7 @@ void delay_us(uint32_t nus)
 }
 
 // 延时 nms (毫秒)
-void delay_ms(uint16_t nms)
+void Delay_ms(uint16_t nms)
 {	 		  	  
     uint32_t temp;		   
     SysTick->LOAD = (uint32_t)nms * fac_ms; // 装载毫秒级的滴答数

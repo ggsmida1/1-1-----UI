@@ -2,6 +2,9 @@
 #include "Key.h"
 #include "LED.h"
 #include "SetTime.h"
+#include "MPU6050.h"
+#include "Delay.h"
+#include <math.h>
 
 
 void Menu_Init(void)
@@ -9,6 +12,7 @@ void Menu_Init(void)
     MyRTC_Init();
     Key_Init();
     LED_Init();
+    MPU6050_Init();
 }
 
 /* --------------  首页时钟 ----------------*/
@@ -129,6 +133,7 @@ int SettingPage(void)
 void MenuToFunction(void);
 int StopWatch(void);
 int LED(void);
+int MPU6050_Func(void);
 
 /* --------------  滑动菜单界面 ----------------*/
 
@@ -223,7 +228,7 @@ int Menu(void)
         if (menu_flag_temp == 1) { return 0; }
         else if (menu_flag_temp == 2) { MenuToFunction(); StopWatch(); }
         else if (menu_flag_temp == 3) { MenuToFunction(); LED(); }
-        else if (menu_flag_temp == 4) {}
+        else if (menu_flag_temp == 4) { MenuToFunction(); MPU6050_Func(); }
         else if (menu_flag_temp == 5) {}
         else if (menu_flag_temp == 6) {}
         else if (menu_flag_temp == 7) {}
@@ -416,5 +421,63 @@ int LED(void)
                 OLED_Update();
                 break;
         }
+    }
+}
+
+/* --------------  MPU6050 姿态解算 ----------------*/
+
+int16_t ax, ay, az, gx, gy, gz;
+float roll_g, pitch_g, yaw_g;
+float roll_a, pitch_a;
+float Roll, Pitch, Yaw;
+float a = 0.9;
+float Delta_t = 0.005;
+double pi = 3.1415927;
+
+void MPU6050_Calculation(void)
+{
+    Delay_ms(5);
+    MPU6050_GetData(&ax, &ay, &az, &gx, &gy, &gz);
+
+    // 通过陀螺仪计算欧拉角
+    roll_g = Roll + (float)gx * Delta_t;
+    pitch_g = Pitch + (float)gy * Delta_t;
+    yaw_g = Yaw + (float)gz * Delta_t;
+
+    // 通过加速度计计算欧拉角
+    pitch_a = atan2((-1) * ax, az) * 180 / pi;
+    roll_a = atan2(ay, az) * 180 / pi;
+
+    // 互补滤波融合
+    Roll = a * roll_g + (1 - a) * roll_a;
+    Pitch = a * pitch_g + (1 - a) * pitch_a;
+    Yaw = a * yaw_g;
+}
+
+void Show_MPU6050_UI(void)
+{
+    OLED_ShowImage(0, 0, 16, 16, Return);
+    OLED_Printf(0, 16, OLED_8X16, "Roll: %.2f", Roll);
+    OLED_Printf(0, 32, OLED_8X16, "Pitch:%.2f", Pitch);
+    OLED_Printf(0, 48, OLED_8X16, "Yaw:  %.2f", Yaw);
+}
+
+int MPU6050_Func(void)
+{
+    while (1)
+    {
+        KeyNum = Key_GetNum();
+        if (KeyNum == 3)
+        {
+            OLED_Clear();
+            OLED_Update();
+            return 0;
+        }
+
+        OLED_Clear();
+        MPU6050_Calculation();
+        Show_MPU6050_UI();
+        OLED_ReverseArea(0, 0, 16, 16);
+        OLED_Update();
     }
 }

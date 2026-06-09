@@ -3,9 +3,11 @@
 #include "menu.h"
 #include "Timer.h"
 #include "Key.h"
+#include "Delay.h"
 
 int main(void)
 {
+    Delay_Init();
     OLED_Init();
     OLED_Clear();
     Menu_Init();
