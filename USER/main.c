@@ -1,10 +1,6 @@
-#include "stm32f10x.h"                  // Device header
-#include "OLED.h"
+#include "stm32f10x.h"
 #include "menu.h"
 #include "Timer.h"
-#include "Key.h"
-#include "Delay.h"
-#include "dino.h"
 
 int main(void)
 {
@@ -19,8 +15,8 @@ int main(void)
     while (1)
     {
         clkflag1 = First_Page_Clock();
-        if (clkflag1 == 1) { Menu(); }    // 菜单
-        else if (clkflag1 == 2) { SettingPage(); } // 设置
+        if (clkflag1 == 1) { Menu(); }
+        else if (clkflag1 == 2) { SettingPage(); }
     }
 }
 

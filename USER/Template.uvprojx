@@ -620,6 +620,31 @@
               <FileType>1</FileType>
               <FilePath>..\APP\src\menu.c</FilePath>
             </File>
+            <File>
+              <FileName>app_emoji.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_emoji.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_flashlight.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_flashlight.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_gradienter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_gradienter.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_mpu6050_ui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_mpu6050_ui.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_stopwatch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_stopwatch.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
