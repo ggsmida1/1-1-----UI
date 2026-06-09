@@ -136,6 +136,7 @@ int StopWatch(void);
 int LED(void);
 int MPU6050_Func(void);
 int DinoGame_Animation(void);
+int Emoji(void);
 
 /* --------------  滑动菜单界面 ----------------*/
 
@@ -232,7 +233,7 @@ int Menu(void)
         else if (menu_flag_temp == 3) { MenuToFunction(); LED(); }
         else if (menu_flag_temp == 4) { MenuToFunction(); MPU6050_Func(); }
         else if (menu_flag_temp == 5) { DinoGame_Pos_Init(); DinoGame_Animation(); }
-        else if (menu_flag_temp == 6) {}
+        else if (menu_flag_temp == 6) { Emoji(); }
         else if (menu_flag_temp == 7) {}
 
         if (menu_flag == 1)
@@ -481,5 +482,54 @@ int MPU6050_Func(void)
         Show_MPU6050_UI();
         OLED_ReverseArea(0, 0, 16, 16);
         OLED_Update();
+    }
+}
+
+/* --------------  动态表情包 ----------------*/
+
+void Show_Emoji_UI(void)
+{
+    /* 睁眼 */
+    for (uint8_t i = 0; i < 3; i++)
+    {
+        OLED_Clear();
+        OLED_ShowImage(30, 10 + i, 16, 16, Eyebrow[0]);    // 左眉毛
+        OLED_ShowImage(82, 10 + i, 16, 16, Eyebrow[1]);    // 右眉毛
+        OLED_DrawEllipse(40, 32, 6, 6 - i, OLED_FILLED);   // 左眼
+        OLED_DrawEllipse(88, 32, 6, 6 - i, OLED_FILLED);   // 右眼
+        OLED_ShowImage(54, 40, 20, 20, Mouth);
+        OLED_Update();
+        Delay_ms(100);
+    }
+
+    /* 闭眼 */
+    for (uint8_t i = 0; i < 3; i++)
+    {
+        OLED_Clear();
+        OLED_ShowImage(30, 12 - i, 16, 16, Eyebrow[0]);    // 左眉毛
+        OLED_ShowImage(82, 12 - i, 16, 16, Eyebrow[1]);    // 右眉毛
+        OLED_DrawEllipse(40, 32, 6, 4 + i, OLED_FILLED);   // 左眼
+        OLED_DrawEllipse(88, 32, 6, 4 + i, OLED_FILLED);   // 右眼
+        OLED_ShowImage(54, 40, 20, 20, Mouth);
+        OLED_Update();
+        Delay_ms(100);
+    }
+
+    Delay_ms(500);
+}
+
+int Emoji(void)
+{
+    while (1)
+    {
+        KeyNum = Key_GetNum();
+        if (KeyNum == 3)
+        {
+            OLED_Clear();
+            OLED_Update();
+            return 0;
+        }
+
+        Show_Emoji_UI();
     }
 }
