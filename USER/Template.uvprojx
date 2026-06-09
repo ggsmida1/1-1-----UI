@@ -660,6 +660,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\src\MyI2C.c</FilePath>
             </File>
+            <File>
+              <FileName>dino.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\src\dino.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

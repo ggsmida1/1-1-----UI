@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "Key.h"
 #include "Delay.h"
+#include "dino.h"
 
 int main(void)
 {
@@ -29,6 +30,7 @@ void TIM2_IRQHandler(void)
     {
         Key_Tick();
         StopWatch_Tick();
+        Dino_Tick();
         TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
     }
 }

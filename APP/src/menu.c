@@ -3,6 +3,7 @@
 #include "LED.h"
 #include "SetTime.h"
 #include "MPU6050.h"
+#include "dino.h"
 #include "Delay.h"
 #include <math.h>
 
@@ -24,7 +25,7 @@ void Show_Clock_UI(void) {
                 MyRTC_Time[0], MyRTC_Time[1], MyRTC_Time[2]);
 
     OLED_Printf(16, 16, OLED_12X24, "%02d:%02d:%02d",
-                MyRTC_Time[3], MyRTC_Time[4], MyRTC_Time[5]);
+                MyRTC_Time[3], MyRTC_Time[4], MyRTC_Time[5]); 
 
     OLED_ShowString(0, 48, "菜单", OLED_8X16);
     OLED_ShowString(96, 48, "设置", OLED_8X16);
@@ -134,6 +135,7 @@ void MenuToFunction(void);
 int StopWatch(void);
 int LED(void);
 int MPU6050_Func(void);
+int DinoGame_Animation(void);
 
 /* --------------  滑动菜单界面 ----------------*/
 
@@ -229,7 +231,7 @@ int Menu(void)
         else if (menu_flag_temp == 2) { MenuToFunction(); StopWatch(); }
         else if (menu_flag_temp == 3) { MenuToFunction(); LED(); }
         else if (menu_flag_temp == 4) { MenuToFunction(); MPU6050_Func(); }
-        else if (menu_flag_temp == 5) {}
+        else if (menu_flag_temp == 5) { DinoGame_Pos_Init(); DinoGame_Animation(); }
         else if (menu_flag_temp == 6) {}
         else if (menu_flag_temp == 7) {}
 

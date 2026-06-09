@@ -7,5 +7,6 @@
 void Delay_Init(void);       // 初始化延时函数
 void Delay_ms(uint16_t nms); // 毫秒级延时
 void Delay_us(uint32_t nus); // 微秒级延时
+void Delay_s(uint32_t ns);   // 秒级延时
 
 #endif
