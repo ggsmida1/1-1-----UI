@@ -28,6 +28,7 @@ void TIM2_IRQHandler(void)
 {
     if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)
     {
+        Key3_Tick();
         Key_Tick();
         StopWatch_Tick();
         Dino_Tick();

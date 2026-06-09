@@ -665,6 +665,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\src\dino.c</FilePath>
             </File>
+            <File>
+              <FileName>AD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\src\AD.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

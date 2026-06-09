@@ -14,60 +14,60 @@ void Key_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6|GPIO_Pin_3 ;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_3 ;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
 uint8_t Key_GetNum(void)
 {
 	uint8_t Temp;
-	if(Key_Num)
+	if (Key_Num)
 	{
-		Temp=Key_Num;
-		Key_Num=0;
+		Temp = Key_Num;
+		Key_Num = 0;
 		return Temp;
 	}
-	else
-	{
-		return 0;
-	}
+	return 0;
 }
+
+int press_time;
+
+void Key3_Tick(void)
+{
+	if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_3) == 0)
+		press_time++;
+	else
+		press_time = 0;
+}
+
 uint8_t Key_GetState(void)
 {
-
 	if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1) == 0)
-	{
 		return 1;
-	}
+
 	if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6) == 0)
-	{
 		return 2;
-	}
+
+	if ((GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_3) == 0) && press_time > 1000)
+		return 4;	// 长按
+
 	if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_3) == 0)
-	{
-		return 3;
-	}
+		return 3;	// 短按
 
-	else
-	{
-		return 0;
-	}
-
+	return 0;
 }
 
 void Key_Tick(void)
 {
 	static uint8_t Count;
-	static uint8_t CurrentState,PreState;
+	static uint8_t CurrentState, PreState;
 	Count++;
-	if(Count>=20)
+	if (Count >= 20)
 	{
-		Count=0;
-		PreState=CurrentState;
-		CurrentState=Key_GetState();
-		if(PreState!=0&&CurrentState==0)
-		{
-			Key_Num=PreState;
-		}
+		Count = 0;
+		PreState = CurrentState;
+		CurrentState = Key_GetState();
+		if (PreState != 0 && CurrentState == 0)
+			Key_Num = PreState;
 	}
 }
