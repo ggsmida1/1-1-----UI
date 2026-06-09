@@ -1,21 +1,22 @@
 #include "stm32f10x.h"                  // Device header
+#include "board_config.h"
 #include "Delay.h"
 
 uint8_t Key_Num;
 
 void Key_Init(void)
 {
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+	RCC_APB2PeriphClockCmd(KEY1_RCC, ENABLE);
+	RCC_APB2PeriphClockCmd(KEY2_RCC, ENABLE);   // KEY2/3 同一端口
 
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 ;
+	GPIO_InitStructure.GPIO_Pin = KEY1_PIN;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_Init(KEY1_PORT, &GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_3 ;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = KEY2_PIN | KEY3_PIN;
+	GPIO_Init(KEY2_PORT, &GPIO_InitStructure);   // KEY2/3 同一端口
 }
 
 uint8_t Key_GetNum(void)
@@ -34,7 +35,7 @@ int press_time;
 
 void Key3_Tick(void)
 {
-	if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_3) == 0)
+	if (GPIO_ReadInputDataBit(KEY3_PORT, KEY3_PIN) == 0)
 		press_time++;
 	else
 		press_time = 0;
@@ -42,16 +43,16 @@ void Key3_Tick(void)
 
 uint8_t Key_GetState(void)
 {
-	if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1) == 0)
+	if (GPIO_ReadInputDataBit(KEY1_PORT, KEY1_PIN) == 0)
 		return 1;
 
-	if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6) == 0)
+	if (GPIO_ReadInputDataBit(KEY2_PORT, KEY2_PIN) == 0)
 		return 2;
 
-	if ((GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_3) == 0) && press_time > 1000)
+	if ((GPIO_ReadInputDataBit(KEY3_PORT, KEY3_PIN) == 0) && press_time > 1000)
 		return 4;	// 长按
 
-	if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_3) == 0)
+	if (GPIO_ReadInputDataBit(KEY3_PORT, KEY3_PIN) == 0)
 		return 3;	// 短按
 
 	return 0;

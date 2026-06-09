@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "board_config.h"
 #include "Key.h"
 #include "LED.h"
 #include "SetTime.h"
@@ -98,8 +99,8 @@ int First_Page_Clock(void)
         }
         else if (KeyNum == 4)   // 长按关机
         {
-            GPIO_ResetBits(GPIOB, GPIO_Pin_13);
-            GPIO_SetBits(GPIOB, GPIO_Pin_12);
+            GPIO_ResetBits(PWR_CTRL1_PORT, PWR_CTRL1_PIN);
+            GPIO_SetBits(PWR_CTRL2_PORT, PWR_CTRL2_PIN);
             while (1);
         }
 

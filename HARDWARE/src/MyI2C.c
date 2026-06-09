@@ -1,37 +1,38 @@
 #include "stm32f10x.h"
+#include "board_config.h"
 #include "Delay.h"
 
 void MyI2C_W_SCL(uint8_t BitValue)
 {
-    GPIO_WriteBit(GPIOB, GPIO_Pin_10, (BitAction)BitValue);
+    GPIO_WriteBit(MPU_I2C_PORT, MPU_I2C_SCL_PIN, (BitAction)BitValue);
     Delay_us(10);
 }
 
 void MyI2C_W_SDA(uint8_t BitValue)
 {
-    GPIO_WriteBit(GPIOB, GPIO_Pin_11, (BitAction)BitValue);
+    GPIO_WriteBit(MPU_I2C_PORT, MPU_I2C_SDA_PIN, (BitAction)BitValue);
     Delay_us(10);
 }
 
 uint8_t MyI2C_R_SDA(void)
 {
     uint8_t BitValue;
-    BitValue = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11);
+    BitValue = GPIO_ReadInputDataBit(MPU_I2C_PORT, MPU_I2C_SDA_PIN);
     Delay_us(10);
     return BitValue;
 }
 
 void MyI2C_Init(void)
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+    RCC_APB2PeriphClockCmd(MPU_I2C_RCC, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
+    GPIO_InitStructure.GPIO_Pin = MPU_I2C_SCL_PIN | MPU_I2C_SDA_PIN;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
+    GPIO_Init(MPU_I2C_PORT, &GPIO_InitStructure);
 
-    GPIO_SetBits(GPIOB, GPIO_Pin_10 | GPIO_Pin_11);
+    GPIO_SetBits(MPU_I2C_PORT, MPU_I2C_SCL_PIN | MPU_I2C_SDA_PIN);
 }
 
 void MyI2C_Start(void)
