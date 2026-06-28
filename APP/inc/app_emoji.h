@@ -1,10 +1,6 @@
 #ifndef __APP_EMOJI_H
 #define __APP_EMOJI_H
 
-#include "Key.h"
-#include "Delay.h"
-#include "OLED.h"
-
-int Emoji(void);
+int App_Emoji_Run(void);
 
 #endif

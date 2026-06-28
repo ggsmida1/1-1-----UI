@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\USER;..\STM32F10x_FWLib\inc;..\SYSTEM\inc;..\APP\inc;..\HARDWARE\inc</IncludePath>
+              <IncludePath>..\CORE;..\USER;..\STM32F10x_FWLib\inc;..\SYSTEM\inc;..\APP\inc;..\HARDWARE\inc;..\RES\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -616,9 +616,34 @@
           <GroupName>APP</GroupName>
           <Files>
             <File>
-              <FileName>menu.c</FileName>
+              <FileName>app_launcher.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\APP\src\menu.c</FilePath>
+              <FilePath>..\APP\src\app_launcher.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_home.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_home.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_settings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_settings.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_set_time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_set_time.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_dino.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_dino.c</FilePath>
             </File>
             <File>
               <FileName>app_emoji.c</FileName>
@@ -645,6 +670,11 @@
               <FileType>1</FileType>
               <FilePath>..\APP\src\app_stopwatch.c</FilePath>
             </File>
+            <File>
+              <FileName>app_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\app_tick.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -654,11 +684,6 @@
               <FileName>OLED.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\src\OLED.c</FilePath>
-            </File>
-            <File>
-              <FileName>OLED_Data.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\src\OLED_Data.c</FilePath>
             </File>
             <File>
               <FileName>Key.c</FileName>
@@ -671,11 +696,6 @@
               <FilePath>..\HARDWARE\src\LED.c</FilePath>
             </File>
             <File>
-              <FileName>SetTime.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\src\SetTime.c</FilePath>
-            </File>
-            <File>
               <FileName>MPU6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\src\MPU6050.c</FilePath>
@@ -686,14 +706,19 @@
               <FilePath>..\HARDWARE\src\MyI2C.c</FilePath>
             </File>
             <File>
-              <FileName>dino.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\src\dino.c</FilePath>
-            </File>
-            <File>
               <FileName>AD.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\src\AD.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>RES</GroupName>
+          <Files>
+            <File>
+              <FileName>ui_resources.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RES\src\ui_resources.c</FilePath>
             </File>
           </Files>
         </Group>

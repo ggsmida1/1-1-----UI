@@ -1,7 +1,9 @@
-#include "stm32f10x.h"
+#include "app_set_time.h"
+
+#include "Key.h"
 #include "MyRTC.h"
 #include "OLED.h"
-#include "Key.h"
+#include "stm32f10x.h"
 
 /* -------------- 设置页面UI ----------------*/
 
@@ -175,7 +177,7 @@ int SetSec(void)
 
 int set_time_flag = 1;
 
-int SetTime(void)
+int App_SetTime_Run(void)
 {
     while (1)
     {

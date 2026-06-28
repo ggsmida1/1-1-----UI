@@ -1,5 +1,10 @@
 #include "app_emoji.h"
 
+#include "Delay.h"
+#include "Key.h"
+#include "OLED.h"
+#include "stm32f10x.h"
+
 static void Show_Emoji_UI(void)
 {
     /* 睁眼 */
@@ -31,7 +36,7 @@ static void Show_Emoji_UI(void)
     Delay_ms(500);
 }
 
-int Emoji(void)
+int App_Emoji_Run(void)
 {
     while (1)
     {

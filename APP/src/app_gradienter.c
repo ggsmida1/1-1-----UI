@@ -1,5 +1,10 @@
 #include "app_gradienter.h"
 
+#include "Key.h"
+#include "MPU6050.h"
+#include "OLED.h"
+#include "stm32f10x.h"
+
 static void Show_Gradienter_UI(void)
 {
     MPU6050_Calculation();
@@ -7,7 +12,7 @@ static void Show_Gradienter_UI(void)
     OLED_DrawCircle(64 - (int16_t)Roll, 32 + (int16_t)Pitch, 4, OLED_FILLED);
 }
 
-int Gradienter(void)
+int App_Gradienter_Run(void)
 {
     while (1)
     {

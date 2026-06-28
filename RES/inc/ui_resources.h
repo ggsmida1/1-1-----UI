@@ -1,6 +1,6 @@
-#ifndef __OLED_DATA_H
+#ifndef __UI_RESOURCES_H
 
-#define __OLED_DATA_H
+#define __UI_RESOURCES_H
 
 
 

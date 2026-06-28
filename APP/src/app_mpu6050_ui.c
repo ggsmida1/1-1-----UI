@@ -1,5 +1,10 @@
 #include "app_mpu6050_ui.h"
 
+#include "Key.h"
+#include "MPU6050.h"
+#include "OLED.h"
+#include "stm32f10x.h"
+
 static void Show_MPU6050_UI(void)
 {
     OLED_ShowImage(0, 0, 16, 16, Return);
@@ -8,7 +13,7 @@ static void Show_MPU6050_UI(void)
     OLED_Printf(0, 48, OLED_8X16, "Yaw:  %.2f", Yaw);
 }
 
-int MPU6050_Func(void)
+int App_MPU6050_Run(void)
 {
     while (1)
     {

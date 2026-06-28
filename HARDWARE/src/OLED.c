@@ -593,7 +593,7 @@ void OLED_ShowChar(int16_t X, int16_t Y, char Char, uint8_t FontSize)
   *           范围：OLED_8X16		宽8像素，高16像素
   *                 OLED_6X8		宽6像素，高8像素
   * 返 回 值：无
-  * 说    明：显示的中文字符需要在OLED_Data.c里的OLED_CF16x16数组定义
+  * 说    明：显示的中文字符需要在ui_resources.c里的OLED_CF16x16数组定义
   *           未找到指定中文字符时，会显示默认图形（一个方框，内部一个问号）
   *           当字体大小为OLED_8X16时，中文字符以16*16点阵正常显示
   *           当字体大小为OLED_6X8时，中文字符以6*8点阵显示'?'
@@ -936,7 +936,7 @@ void OLED_ShowImage(int16_t X, int16_t Y, uint8_t Width, uint8_t Height, const u
   * 参    数：format 指定要显示的格式化字符串，范围：ASCII码可见字符或中文字符组成的字符串
   * 参    数：... 格式化字符串参数列表
   * 返 回 值：无
-  * 说    明：显示的中文字符需要在OLED_Data.c里的OLED_CF16x16数组定义
+  * 说    明：显示的中文字符需要在ui_resources.c里的OLED_CF16x16数组定义
   *           未找到指定中文字符时，会显示默认图形（一个方框，内部一个问号）
   *           当字体大小为OLED_8X16时，中文字符以16*16点阵正常显示
   *           当字体大小为OLED_6X8时，中文字符以6*8点阵显示'?'

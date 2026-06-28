@@ -1,5 +1,10 @@
 #include "app_flashlight.h"
 
+#include "Key.h"
+#include "LED.h"
+#include "OLED.h"
+#include "stm32f10x.h"
+
 static void Show_LED_UI(void)
 {
     OLED_ShowImage(0, 0, 16, 16, Return);
@@ -7,7 +12,7 @@ static void Show_LED_UI(void)
     OLED_ShowString(72, 20, "ON", OLED_12X24);
 }
 
-int LED(void)
+int App_Flashlight_Run(void)
 {
     uint8_t led_flag = 1;
     while (1)

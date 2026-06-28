@@ -1,5 +1,9 @@
 #include "app_stopwatch.h"
 
+#include "Key.h"
+#include "OLED.h"
+#include "stm32f10x.h"
+
 static uint8_t hour, min, sec;
 static uint8_t start_timing_flag;
 
@@ -12,7 +16,7 @@ static void Show_StopWatch_UI(void)
     OLED_ShowString(88, 44, "清除", OLED_8X16);
 }
 
-void StopWatch_Tick(void)
+void App_Stopwatch_Tick(void)
 {
     static uint16_t Count;
     Count++;
@@ -37,7 +41,7 @@ void StopWatch_Tick(void)
     }
 }
 
-int StopWatch(void)
+int App_Stopwatch_Run(void)
 {
     uint8_t stopwatch_flag = 1;
     while (1)

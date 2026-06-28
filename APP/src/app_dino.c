@@ -1,12 +1,15 @@
-#include "stm32f10x.h"
-#include "OLED.h"
-#include "Key.h"
-#include <stdlib.h>
-#include <math.h>
+#include "app_dino.h"
+
 #include "Delay.h"
+#include "Key.h"
+#include "OLED.h"
+#include "stm32f10x.h"
+#include <math.h>
+#include <stdlib.h>
 
 extern uint8_t OLED_DisplayBuf[8][128];
 
+/* 小恐龙游戏直接写 OLED 显存，以便滚动地面和角色/障碍物逐帧合成 */
 struct Object_Position {
     uint8_t minX, minY, maxX, maxY;
 };
@@ -116,7 +119,7 @@ int isColliding(struct Object_Position *a, struct Object_Position *b)
     return 0;
 }
 
-int DinoGame_Animation(void)
+static int DinoGame_Animation(void)
 {
     while (1)
     {
@@ -136,7 +139,7 @@ int DinoGame_Animation(void)
     }
 }
 
-void Dino_Tick(void)
+void App_Dino_Tick(void)
 {
     static uint8_t Score_Count, Ground_Count, Cloud_Count;
     Score_Count++;
@@ -176,7 +179,13 @@ void Dino_Tick(void)
     }
 }
 
-void DinoGame_Pos_Init(void)
+static void DinoGame_Pos_Init(void)
 {
     Score = Ground_Pos = Barrier_Pos = Cloud_Pos = Jump_Pos = 0;
+}
+
+int App_Dino_Run(void)
+{
+    DinoGame_Pos_Init();
+    return DinoGame_Animation();
 }
